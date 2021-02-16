@@ -1,5 +1,22 @@
 import os
-from csv import reader
+from csv import reader, DictReader
+import time
+import requests
+
+def get_current_values(positions):
+    # official ls exchange .csv file
+    url = "https://www.ls-x.de/_rpc/json/.lstc/instrument/list/lsxtradestoday"
+
+    ls_download = requests.get(url).text
+    iterable = ls_download.split("\n")
+
+    csv = DictReader(iterable, delimiter=";", quotechar='"')
+    for line in csv:
+        for position in positions:
+            if line["isin"] == position["isin"]:
+                position["worth"] = float(line["price"].replace(",", ".")) * position["quantity"]
+
+    return positions
 
 def get_positions(folder):
     positions = []
@@ -19,16 +36,19 @@ def get_positions(folder):
 
 def display_value(folder):
     positions = get_positions(folder)
-    value = get_current_value(positions)
-    print_formatted_value(value, "|")
+    values = get_current_values(positions)
+    # print_formatted_value(value, "|")
+    print(values)
 
     while True:
-        current_value = get_current_value(positions)
+        time.sleep(10 * 60) # 10 minutes
+        current_values = get_current_values(positions)
 
-        if current_value > value:
-            print_formatted_value(current_value, "+")
-        elif current_value < value:
-            print_formatted_value(current_value, "-")
+    #     if current_value > value:
+    #         print_formatted_value(current_value, "+")
+    #     elif current_value < value:
+    #         print_formatted_value(current_value, "-")
+        # values = current_value
         
-        value = current_value
+        print(current_values)
         
