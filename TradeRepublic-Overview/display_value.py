@@ -34,21 +34,43 @@ def get_positions(folder):
         raise Exception("No positions.csv file found, parse your PDFs first.")
     return positions
 
+def print_formatted_values(values, tendency=None):
+    sorted_positions = sorted(values, key= lambda x: x["worth"], reverse=True)
+    max_length = 0
+    for position in sorted_positions:
+        isin = position.get("isin")
+        worth = f"{position.get('worth'):.2f}"
+        if len(worth) > max_length: max_length = len(worth)
+        print(f"{isin:20s} {worth.rjust(max_length)}€")
+
+    hline = "_" * (22 + max_length)
+    up_arrow = "\u25b2"
+    down_arrow = "\u25bc"
+    total_worth = str(sum([x["worth"] for x in values])) + "€"
+
+    if tendency == "+":
+        total_worth = up_arrow + " " + total_worth
+    elif tendency == "-":
+        total_worth = down_arrow + " " + total_worth
+
+    print(hline)
+    print(total_worth.rjust(len(hline)) + "\n")
+
 def display_value(folder):
     positions = get_positions(folder)
     values = get_current_values(positions)
-    # print_formatted_value(value, "|")
-    print(values)
+    worth = sum([x["worth"] for x in values])
+    print_formatted_values(values)
 
     while True:
         time.sleep(10 * 60) # 10 minutes
         current_values = get_current_values(positions)
+        current_worth = sum([x["worth"] for x in current_values])
 
-    #     if current_value > value:
-    #         print_formatted_value(current_value, "+")
-    #     elif current_value < value:
-    #         print_formatted_value(current_value, "-")
-        # values = current_value
-        
-        print(current_values)
-        
+        if current_worth > worth:
+            print_formatted_values(current_values, "+")
+        elif current_worth < worth:
+            print_formatted_values(current_values, "-")
+
+        values = current_values
+        worth = current_worth

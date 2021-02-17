@@ -6,7 +6,7 @@ def parse_pdf(file):
     with open(file, "rb") as infile:
         pdf_reader = PyPDF2.PdfFileReader(infile)
         extracted_text = pdf_reader.getPage(0).extractText()
-        isin_t = re.findall(r"\.ISIN: (.*?) ", extracted_text)[0]
+        isin_t = re.findall(r"ISIN: (.*?) ", extracted_text)[0]
 
         isin = isin_t[:12]
         quantity = isin_t[12:]
