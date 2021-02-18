@@ -4,7 +4,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="traderep", # Replace with your own username
+    name="traderep",
+    entry_points = {
+        "console_scripts": ["traderep = traderep.traderep:main"]
+    },
     version="0.0.1",
     author="Giebisch",
     author_email="rafael@giebisch-mail.de",

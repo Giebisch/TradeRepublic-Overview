@@ -1,9 +1,9 @@
 import argparse
 
-from parse_pdfs import parse_pdfs
-from display_value import display_value
+from .parse_pdfs import parse_pdfs
+from .display_value import display_value
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
 
     # parse all PDFs in folder
