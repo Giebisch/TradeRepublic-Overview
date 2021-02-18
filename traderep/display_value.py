@@ -1,6 +1,8 @@
 import os
-from csv import reader, DictReader
 import time
+from csv import reader, DictReader
+from datetime import datetime
+
 import requests
 
 def get_current_values(positions):
@@ -58,8 +60,9 @@ def print_formatted_values(values, tendency=None):
     elif tendency == "-":
         total_worth = down_arrow + " " + total_worth
 
+    now = datetime.now()
     print(hline)
-    print(total_worth.rjust(len(hline)) + "\n")
+    print(f"{now.strftime('%H:%M:S')}{total_worth.rjust(len(hline) - 8)}\n")
 
 def display_value(folder):
     positions = get_positions(folder)
