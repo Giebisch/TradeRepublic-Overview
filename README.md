@@ -13,18 +13,23 @@ There are two options to read in your depot, one is to specify a folder with all
 parses them for their ISINs and quantity. Other option is to specify a .csv file where you can explicitly state your positions. After the positions are read
 it periodically displays your positions with their current price and total worth.
 
+This is what the output will look like:
+![Example](doc/example_output.png)
+
 ## How do I use it ?
 
 Run the script with `-h` or `--help` to get following message:
 
-    usage: traderep [-h] [--parse PARSE] [--value VALUE]
+    usage: traderep [-h] [--folder FOLDER] [--csv CSV]
 
     optional arguments:
-    -h, --help     show this help message and exit
-    --parse PARSE  Specify folder you want to parse the pdfs in
-    --value VALUE  Specify the folder you previously parsed
+    -h, --help       show this help message and exit
+    --folder FOLDER  Specify folder you want to parse the pdfs in
+    --csv CSV        Specify the .csv file you want to use
 
-## What format does the .csv file have to have ?
+## What does the .csv file have to look like?
+
+Example:
 
     ISIN;QUANTITY;PRICE;
     IE00B4L5Y983;50.0;62.28
