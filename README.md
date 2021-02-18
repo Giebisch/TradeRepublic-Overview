@@ -17,6 +17,7 @@ This is what the output will look like:
 ![Example](doc/example_output.png)
 
 ## How do I use it ?
+Install via `pip install traderep`
 
 Run the script with `-h` or `--help` to get following message:
 
