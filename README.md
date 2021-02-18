@@ -1,6 +1,7 @@
 # TradeRepublic-Overview
 
 ![Python application](https://github.com/Giebisch/TradeRepublic-Overview/workflows/Python%20application/badge.svg)
+[![Upload Python Package](https://github.com/Giebisch/TradeRepublic-Overview/actions/workflows/python-publish.yml/badge.svg)](https://github.com/Giebisch/TradeRepublic-Overview/actions/workflows/python-publish.yml)
 
 ## Why was this made ?
 
