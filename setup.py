@@ -8,7 +8,7 @@ setuptools.setup(
     entry_points = {
         "console_scripts": ["traderep = traderep.traderep:main"]
     },
-    version="0.0.1",
+    version="1.0",
     author="Giebisch",
     author_email="rafael@giebisch-mail.de",
     description="Application for parsing positions and \
