@@ -22,10 +22,10 @@ def get_current_values(positions):
 
     return positions
 
-def get_positions(folder):
+def get_positions(file):
     positions = []
     try:
-        with open(os.path.join(folder, "positions.csv")) as infile:
+        with open(file) as infile:
             csv = reader(infile, delimiter=";")
             next(csv)
             for line in csv:
@@ -35,7 +35,7 @@ def get_positions(folder):
                 dic["price"] = float(line[2])
                 positions.append(dic)
     except:
-        raise Exception("No positions.csv file found, parse your PDFs first.")
+        raise Exception("Error with csv file")
     return positions
 
 def print_formatted_values(values, tendency=None):
@@ -64,8 +64,7 @@ def print_formatted_values(values, tendency=None):
     print(hline)
     print(f"{now.strftime('%H:%M:%S')}{total_worth.rjust(len(hline) - 8)}\n")
 
-def display_value(folder):
-    positions = get_positions(folder)
+def display_value(positions):
     values = get_current_values(positions)
     worth = sum([x["worth"] for x in values])
     print_formatted_values(values)

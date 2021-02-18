@@ -21,13 +21,6 @@ def parse_pdf(file):
 
     return dic
 
-def export_values(folder, values):
-    with open(os.path.join(folder, "positions.csv"), "w") as csv:
-        csv.write("ISIN;QUANTITY;PRICE;\n")
-        for dic in values:
-            csv.write(";".join([dic.get("isin"), str(dic.get("quantity")), \
-                str(dic.get("price"))]) + "\n")
-
 def parse_pdfs(folder):
     values = []
 
@@ -36,7 +29,5 @@ def parse_pdfs(folder):
             if file.endswith(".pdf"):
                 value = parse_pdf(os.path.join(root, file))
                 values.append(value)
-
-    export_values(folder, values)
 
     return values
