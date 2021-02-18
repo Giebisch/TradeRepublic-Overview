@@ -14,7 +14,9 @@ def get_current_values(positions):
     for line in csv:
         for position in positions:
             if line["isin"] == position["isin"]:
-                position["worth"] = float(line["price"].replace(",", ".")) * position["quantity"]
+                position["currentPrice"] = float(line["price"].replace(",", "."))
+                position["worth"] = position["currentPrice"] * position["quantity"]
+                position["displayName"] = line["displayName"]
 
     return positions
 
@@ -37,16 +39,19 @@ def get_positions(folder):
 def print_formatted_values(values, tendency=None):
     sorted_positions = sorted(values, key= lambda x: x["worth"], reverse=True)
     max_length = 0
+    print("")
     for position in sorted_positions:
         isin = position.get("isin")
         worth = f"{position.get('worth'):.2f}"
         if len(worth) > max_length: max_length = len(worth)
-        print(f"{isin:20s} {worth.rjust(max_length)}€")
+        currentPrice = f"{position['currentPrice']:.2f}"
+        print(f"{isin:12s} {position['displayName']:50s} {str(int(position['quantity'])).rjust(4)}x @" +
+            f"{currentPrice.rjust(6)}€   {worth.rjust(max_length)}€")
 
-    hline = "_" * (22 + max_length)
+    hline = "_" * (82 + max_length)
     up_arrow = "\u25b2"
     down_arrow = "\u25bc"
-    total_worth = str(sum([x["worth"] for x in values])) + "€"
+    total_worth = f"{sum([x['worth'] for x in values]):.2f}€"
 
     if tendency == "+":
         total_worth = up_arrow + " " + total_worth
