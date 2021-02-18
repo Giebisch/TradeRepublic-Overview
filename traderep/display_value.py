@@ -62,7 +62,7 @@ def print_formatted_values(values, tendency=None):
 
     now = datetime.now()
     print(hline)
-    print(f"{now.strftime('%H:%M:S')}{total_worth.rjust(len(hline) - 8)}\n")
+    print(f"{now.strftime('%H:%M:%S')}{total_worth.rjust(len(hline) - 8)}\n")
 
 def display_value(folder):
     positions = get_positions(folder)
